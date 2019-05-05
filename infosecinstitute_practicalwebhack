@@ -1,0 +1,18 @@
+URL:- http://ctf.infosecinstitute.com/ctf2/
+
+Level 1:-
+Vulnerability: A3 Cross-Site Scripting (XSS)
+Objective: People want you to store your favorite links here. However, you are not into that,
+           you just want to do some XSS magic to the page. Add an alert with the message 'Ex1' to the page (My Sites:)
+           
+Solution:- If you can execute <script>alert("Ex1")</script> in one of the input box, your work is done.
+           For that first get rid of the input validation - use novalidate in form tag.
+           <form class="ex1" action="">  => <form class="ex1" action="" novalidate>
+           
+           Second make change in ex1.js file to get rid of client side sanitization of input
+           var siteName = $(".ex1 input[type='text']").val().trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
+           => var siteName = $(".ex1 input[type='text']").val().trim()
+           var siteURL = $(".ex1 input[type='url']").val().trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
+           => var siteURL = $(".ex1 input[type='url']").val().trim()
+           
+           now type your script tag in the input field and Done!!!!!!!!
